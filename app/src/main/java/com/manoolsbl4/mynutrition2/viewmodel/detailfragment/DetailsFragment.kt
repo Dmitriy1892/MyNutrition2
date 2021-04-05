@@ -22,7 +22,7 @@ class DetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        foodId = DetailsFragmentArgs.fromBundle(savedInstanceState!!).foodId
+        foodId = DetailsFragmentArgs.fromBundle(requireArguments()).foodId
     }
 
     override fun onCreateView(

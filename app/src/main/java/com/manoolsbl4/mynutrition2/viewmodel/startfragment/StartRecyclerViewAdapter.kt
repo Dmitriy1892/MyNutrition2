@@ -2,11 +2,14 @@ package com.manoolsbl4.mynutrition2.viewmodel.startfragment
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.NavHost
 import androidx.navigation.findNavController
@@ -15,11 +18,22 @@ import com.manoolsbl4.mynutrition2.R
 import com.manoolsbl4.mynutrition2.model.Food
 import com.squareup.picasso.Picasso
 
-class StartRecyclerViewHolder(val itemView: View, val context: Context): RecyclerView.ViewHolder(itemView) {
-
+class StartRecyclerViewHolder(val itemView: View, val context: Context): RecyclerView.ViewHolder(itemView), View.OnClickListener{
+    var foodId: String = ""
     val foodName: TextView = itemView.findViewById(R.id.food_name)
     val foodCalories: TextView = itemView.findViewById(R.id.food_calories)
     val foodImage: ImageView = itemView.findViewById(R.id.food_image)
+
+    init {
+        itemView.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+        val position = adapterPosition
+        if (position != RecyclerView.NO_POSITION) {
+            itemView.findNavController().navigate(StartFragmentDirections.actionStartFragmentToDetailsFragment2(foodId))
+        }
+    }
 
 }
 
@@ -41,13 +55,8 @@ class StartRecyclerViewAdapter: RecyclerView.Adapter<StartRecyclerViewHolder>() 
         val item = data[position]
         holder.foodName.text = item.label
         holder.foodCalories.text = item.nutrients.enerc_kcal.toString()
+        holder.foodId = item.foodId!!
         Picasso.with(holder.context).load(item.image).resize(120, 120).into(holder.foodImage)
-        holder.itemView.setOnClickListener {
-                view -> view
-            .findNavController()
-            .navigate(
-                StartFragmentDirections
-                    .actionStartFragmentToDetailsFragment2(item.foodId!!)) }
     }
 
     override fun getItemCount() = data.size
