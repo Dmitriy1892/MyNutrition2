@@ -8,7 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <TextView
             android:id="@+id/detail_label"
             android:layout_width="wrap_content"
@@ -80,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="84dp"
-            android:text="500"
+            tools:text="500"
             app:layout_constraintStart_toEndOf="@+id/detail_kcal"
             app:layout_constraintTop_toTopOf="@+id/detail_kcal" />
 
@@ -89,7 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="25"
+            tools:text="25"
             app:layout_constraintStart_toStartOf="@+id/kcal_value"
             app:layout_constraintTop_toBottomOf="@+id/kcal_value" />
 
@@ -98,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="33"
+            tools:text="33"
             app:layout_constraintStart_toStartOf="@+id/protein_value"
             app:layout_constraintTop_toBottomOf="@+id/protein_value" />
 
@@ -107,7 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="55"
+            tools:text="55"
             app:layout_constraintStart_toStartOf="@+id/fat_value"
             app:layout_constraintTop_toBottomOf="@+id/fat_value" />
     </androidx.constraintlayout.widget.ConstraintLayout>

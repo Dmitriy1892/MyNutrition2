@@ -74,5 +74,4 @@ class NutrientsDeserializer {
             jobject?.get("FIBTG")?.asDouble
         )
     }
-
 }

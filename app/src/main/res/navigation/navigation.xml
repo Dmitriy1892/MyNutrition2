@@ -18,5 +18,9 @@
         android:id="@+id/detailsFragment"
         android:name="com.manoolsbl4.mynutrition2.viewmodel.detailfragment.DetailsFragment"
         android:label="DetailsFragment"
-        tools:layout="@layout/details_fragment"/>
+        tools:layout="@layout/details_fragment">
+        <argument
+            android:name="foodId"
+            app:argType="string" />
+    </fragment>
 </navigation>
