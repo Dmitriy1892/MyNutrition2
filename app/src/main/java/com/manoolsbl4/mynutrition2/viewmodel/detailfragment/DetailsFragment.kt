@@ -34,22 +34,21 @@ class DetailsFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(DetailsViewModel::class.java)
         viewModel.loadFood(foodId)
 
-        viewModel.food.observe(viewLifecycleOwner, {
-            it?.let {
-                binding.apply {
-                    lifecycleScope.launch {
-                        Picasso.with(context).load(it.image).into(detailImage)
-                    }
-                    detailLabel.text = it.label.toString()
-                    kcalValue.text = it.nutrients.enerc_kcal.toString()
-                    proteinValue.text = it.nutrients.procnt.toString()
-                    fatValue.text = it.nutrients.fat.toString()
-                    carbValue.text = it.nutrients.chocdf.toString()
-                }
 
+        viewModel.food.observe(viewLifecycleOwner, {
+            binding.apply {
+                detailLabel.text = it.label.toString()
+                kcalValue.text = it.nutrients.enerc_kcal.toString()
+                proteinValue.text = it.nutrients.procnt.toString()
+                fatValue.text = it.nutrients.fat.toString()
+                carbValue.text = it.nutrients.chocdf.toString()
+                lifecycleScope.launch {
+                    Picasso.with(context).load(it.image).into(detailImage)
+                }
             }
         })
 
         return binding.root
     }
+
 }
