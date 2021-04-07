@@ -8,10 +8,10 @@ import androidx.room.Query
 @Dao
 interface FoodDao {
     @Insert
-    suspend fun insertAll(vararg food: FoodModel)
+    fun insertAll(vararg food: FoodModel)
 
     @Delete
-    suspend fun delete(food: FoodModel)
+    fun delete(food: FoodModel)
 
     @Query("SELECT * FROM favorites_table")
     fun getAllFood(): List<FoodModel>

@@ -7,12 +7,12 @@ import com.manoolsbl4.mynutrition2.room.FoodDao
 import com.manoolsbl4.mynutrition2.room.FoodDatabase
 import com.manoolsbl4.mynutrition2.room.FoodModel
 
-class FavoritesViewModel(val dbDao: FoodDao): ViewModel() {
+class FavoritesViewModel(dbDao: FoodDao): ViewModel() {
     private val _rvData = MutableLiveData<List<FoodModel>>()
     val rvData: LiveData<List<FoodModel>>
         get() = _rvData
 
-    fun addDb(db: FoodDatabase) {
-
+    init {
+        _rvData.value = dbDao.getAllFood()
     }
 }
