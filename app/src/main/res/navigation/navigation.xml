@@ -23,4 +23,13 @@
             android:name="foodId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.manoolsbl4.mynutrition2.viewmodel.favoritesfragment.FavoritesFragment"
+        android:label="FavoritesFragment"
+        tools:layout="@layout/favorites_fragment">
+        <action
+            android:id="@+id/action_favoritesFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
 </navigation>
