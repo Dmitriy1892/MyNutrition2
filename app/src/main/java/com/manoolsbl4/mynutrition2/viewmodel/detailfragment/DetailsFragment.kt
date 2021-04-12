@@ -16,6 +16,7 @@ import com.manoolsbl4.mynutrition2.model.Food
 import com.manoolsbl4.mynutrition2.room.FoodDatabase
 import com.manoolsbl4.mynutrition2.room.FoodModel
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class DetailsFragment : Fragment() {
@@ -36,26 +37,14 @@ class DetailsFragment : Fragment() {
     ): View? {
 
         binding = DetailsFragmentBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this).get(DetailsViewModel::class.java)
-        viewModel.loadFood(foodId)
 
         val dbDao = FoodDatabase.getDatabase(requireContext()).foodDao()
+        viewModel = ViewModelProvider(this, DetailsViewModelFactory(dbDao)).get(DetailsViewModel::class.java)
+        viewModel.loadFood(foodId)
 
         binding.addToFavoriteButton.setOnClickListener{
-            lifecycleScope.launch {
-                dbDao.insertAll(FoodModel(
-                    viewModel.food.value?.foodId.toString(),
-                    viewModel.food.value?.label.toString(),
-                    viewModel.food.value?.image.toString(),
-                    viewModel.food.value?.nutrients?.enerc_kcal,
-                    viewModel.food.value?.nutrients?.procnt,
-                    viewModel.food.value?.nutrients?.fat,
-                    viewModel.food.value?.nutrients?.chocdf,
-                    viewModel.food.value?.nutrients?.fibtg
-                ))
-            }
-
-            it.isClickable = false
+            viewModel.addToFavorites()
+            binding.addToFavoriteButton.isEnabled = false
         }
 
         viewModel.food.observe(viewLifecycleOwner, {

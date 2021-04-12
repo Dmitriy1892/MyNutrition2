@@ -6,13 +6,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.manoolsbl4.mynutrition2.model.Food
 import com.manoolsbl4.mynutrition2.model.Hints
+import com.manoolsbl4.mynutrition2.room.FoodDao
+import com.manoolsbl4.mynutrition2.room.FoodModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailsViewModel : ViewModel() {
+class DetailsViewModel(dao: FoodDao) : ViewModel() {
     private lateinit var foodId: String
+
+    private val dbDao = dao
 
     private var _food: MutableLiveData<Food> = MutableLiveData()
 
@@ -35,6 +40,17 @@ class DetailsViewModel : ViewModel() {
                             println("fail")
                         }
                     })
+        }
+    }
+
+    fun addToFavorites() {
+        viewModelScope.async {
+            val foodModel = _food?.value?.let {
+                FoodModel(it!!.foodId!!, it.label, it.image, it.nutrients.enerc_kcal, it.nutrients.procnt, it.nutrients.fat, it.nutrients.chocdf, it.nutrients.fibtg)
+            }
+            if (foodModel != null) {
+                dbDao.insertAll(foodModel)
+            }
         }
     }
 }
